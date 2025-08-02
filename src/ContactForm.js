@@ -1,9 +1,11 @@
 // Izarra Villareal CS 81 JavaScript Module 11 Assignment 11A: React Contact Form
 
+// GitHub URL: https://github.com/izzyduzzzit/cs81-module11-form
+
 import React, { useState } from 'react';
 
 function ContactForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [submittedData, setSubmittedData] = useState(null);
   const [errors, setErrors] = useState({});
 
@@ -16,6 +18,8 @@ function ContactForm() {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.includes('@')) newErrors.email = 'Invalid email';
+    if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
+    else if (!/^\d{3}-?\d{3}-?\d{4}$/.test(formData.phone)) newErrors.phone = 'Invalid phone';
     if (!formData.message.trim()) newErrors.message = 'Message is required';
     return newErrors;
   };
@@ -25,7 +29,7 @@ function ContactForm() {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       setSubmittedData(formData);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '' });
       setErrors({});
     } else {
       setErrors(validationErrors);
@@ -44,6 +48,11 @@ function ContactForm() {
         <label>Email:<br />
           <input type="email" name="email" value={formData.email} onChange={handleChange} />
           {errors.email && <p style={{color: 'red'}}>{errors.email}</p>}
+        </label><br /><br />
+
+        <label>Phone:<br />
+          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
+          {errors.phone && <p style={{color: 'red'}}>{errors.phone}</p>}
         </label><br /><br />
 
         <label>Message:<br />
