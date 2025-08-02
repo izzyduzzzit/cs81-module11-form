@@ -3,6 +3,7 @@
 // GitHub URL: https://github.com/izzyduzzzit/cs81-module11-form
 
 import React, { useState } from 'react';
+import styles from './ContactForm.module.css';
 
 function ContactForm() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
@@ -37,34 +38,62 @@ function ContactForm() {
   };
 
   return (
-    <div>
-      <h2>Contact Us</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Contact Us</h2>
       <form onSubmit={handleSubmit}>
-        <label>Name:<br />
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-          {errors.name && <p style={{color: 'red'}}>{errors.name}</p>}
-        </label><br /><br />
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Name:</label>
+          <input 
+            className={styles.input}
+            type="text" 
+            name="name" 
+            value={formData.name} 
+            onChange={handleChange} 
+          />
+          {errors.name && <p className={styles.error}>{errors.name}</p>}
+        </div>
 
-        <label>Email:<br />
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
-          {errors.email && <p style={{color: 'red'}}>{errors.email}</p>}
-        </label><br /><br />
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Email:</label>
+          <input 
+            className={styles.input}
+            type="email" 
+            name="email" 
+            value={formData.email} 
+            onChange={handleChange} 
+          />
+          {errors.email && <p className={styles.error}>{errors.email}</p>}
+        </div>
 
-        <label>Phone:<br />
-          <input type="tel" name="phone" value={formData.phone} onChange={handleChange} />
-          {errors.phone && <p style={{color: 'red'}}>{errors.phone}</p>}
-        </label><br /><br />
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Phone:</label>
+          <input 
+            className={styles.input}
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+          {errors.phone && <p className={styles.error}>{errors.phone}</p>}
+        </div>
 
-        <label>Message:<br />
-          <textarea name="message" rows="5" value={formData.message} onChange={handleChange}></textarea>
-          {errors.message && <p style={{color: 'red'}}>{errors.message}</p>}
-        </label><br /><br />
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Message:</label>
+          <textarea 
+            className={styles.textarea}
+            name="message" 
+            rows="5" 
+            value={formData.message} 
+            onChange={handleChange}
+          ></textarea>
+          {errors.message && <p className={styles.error}>{errors.message}</p>}
+        </div>
 
-        <button type="submit">Submit</button>
+        <button className={styles.button} type="submit">Submit</button>
       </form>
 
       {submittedData && (
-        <div style={{ marginTop: '20px' }}>
+        <div className={styles.results}>
           <h3>Submitted Data:</h3>
           <pre>{JSON.stringify(submittedData, null, 2)}</pre>
         </div>
